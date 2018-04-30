@@ -2,6 +2,7 @@ package pl.coderslab.controller;
 
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.Book;
+import pl.coderslab.service.BookService;
 import pl.coderslab.service.MemoryBookService;
 
 import java.util.List;
@@ -10,7 +11,8 @@ import java.util.List;
 @RequestMapping("/books")
 public class BookController {
 
-    MemoryBookService mbs = new MemoryBookService();
+    BookService mbs = new MemoryBookService();
+
 
 
     @RequestMapping("/hello")
@@ -40,6 +42,7 @@ public class BookController {
         return book;
     }
 
+    // should use '@RequestBody Book book' but it isnt working, or I can't find the way to do so 
     @PostMapping
     @RequestMapping("/addBook/{id}/{isbn}/{title}/{author}/{publisher}/{type}")
     public String addBook(@PathVariable ("id") Long id, @PathVariable ("isbn") String isbn,
@@ -66,6 +69,7 @@ public class BookController {
                          @PathVariable ("title") String title, @PathVariable ("author") String author,
                          @PathVariable ("publisher") String publisher, @PathVariable ("type") String type) {
         Book book = mbs.getBook(oldId);
+        Book oldBook = book;
         book.setId(id);
         book.setIsbn(isbn);
         book.setAuthor(author);
@@ -73,7 +77,7 @@ public class BookController {
         book.setPublisher(publisher);
         book.setType(type);
 
-        mbs.editBook(oldId, book);
+        mbs.editBook(oldBook, book);
 
         return book;
     }
