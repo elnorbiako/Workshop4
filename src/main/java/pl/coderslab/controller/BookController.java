@@ -42,7 +42,7 @@ public class BookController {
         return book;
     }
 
-    // should use '@RequestBody Book book' but it isnt working, or I can't find the way to do so 
+    // should use '@RequestBody Book book' but it isnt working, or I can't find the way to do so
     @PostMapping
     @RequestMapping("/addBook/{id}/{isbn}/{title}/{author}/{publisher}/{type}")
     public String addBook(@PathVariable ("id") Long id, @PathVariable ("isbn") String isbn,
